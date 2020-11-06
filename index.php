@@ -129,7 +129,8 @@
 					<h3>Projected final margin for Biden: <u><?= $finalMargin < 0 ? "Lose" : "Win" ?></u> by <b><?= number_format(abs($finalMargin),0,".",",") ?></b> votes.</h3>
 
 					<div style="background:rgba(255,255,255,0.9);width:99%;height:300px;border:2px solid transparent;border-radius:5px;padding-top:10px">
-						<div id="<?=$chartName?>" style="width:100%;height:100%"></div>
+						<div id="<?=$chartName?>" style="width:100%;height:285px"></div>
+						<span style="font-size:10px">&nbsp;&nbsp;Times on horizontal axis are in UTC</span>
 						<script language="javascript">
 							$.getJSON('get-state-graph.php?state=<?=strtolower($stateName)?>&v=' + (new Date()).getTime(), function(chartData) {
 								measuredData = chartData[0];
@@ -140,7 +141,19 @@
 									legend: { enabled: true },
 									chart: { backgroundColor: 'transparent', style: { fontFamily: 'Arial' } },
 									title: { text: '' },
-									xAxis: { lineColor: 'black', tickColor: 'black', gridLineWidth: 1, gridLineColor: 'rgba(0,0,0,0.2)', labels: { style: { color: 'black' } }, type: 'datetime', min: Date.UTC(2020,10,4,0,0,0), max: Date.now() },
+									xAxis: { 
+										lineColor: 'black', tickColor: 'black', 
+										tickInterval: 1000 * 60 * 60 * 6,
+										minorTickInterval: 1000 * 60 * 60,
+										gridLineWidth: 1, 
+										gridLineColor: 'rgba(0,0,0,0.2)', 
+										minorGridLineColor: 'rgba(0,0,0,0.05)', 
+										gridLineWidth: 1,
+										labels: { style: { color: 'black' } },
+										type: 'datetime', 
+										min: Date.UTC(2020,10,4,0,0,0),
+										max: Date.now() + (2*60*60*1000) 
+									},
 									yAxis: { 
 										min: -250000,
 										max: 250000, 
