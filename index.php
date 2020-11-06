@@ -114,13 +114,17 @@
 					if($trendOfTrailingCandidate > 50) $trendOfTrailingCandidate = (100 - $trendOfTrailingCandidate);
 				}
 				
-				$finalMarginColor = "rgba(0,174,243,0.5)";
-				if($finalMargin < 0) $finalMarginColor = "rgba(202,34,43,0.8)";
+				$fontColor = "black";
+				$finalMarginColor = "rgba(29,79,156,1)";
+				if($finalMargin < 0) {
+					$fontColor = "white";
+					$finalMarginColor = "rgba(202,34,43,1)";
+				}
 				
 				$trendOfTrailingCandidate = round($trendOfTrailingCandidate - 50,2);
 				$chartName = '#' . strtolower($stateName) . '_graph';
 				?>
-				<div style="border: 1px solid black; background: <?=$finalMarginColor?>;padding:10px;margin-bottom:15px;margin-right:15px">
+				<div style="color: white; border: 1px solid black; background: <?=$finalMarginColor?>;padding:10px;margin-bottom:15px;margin-right:15px">
 					<h2><?=$stateName?></h2>
 					Currently <b><?=$currentLead?></b> leads. The margin of Biden is <?= number_format($currentMargin,0,".",",")?> votes. The trend towards Biden is <?=$trendOfTrailingCandidate?>% (negative = towards Trump).<br />
 					<br />
@@ -190,7 +194,7 @@
 											type: 'line',
 											name: 'Projected margin',
 											data: projectionData,
-											zones: [ { value: -10000000, color: 'rgba(0,50,128,1)' }, { value: 0, color: 'rgba(202,34,43,1)' } ]
+											zones: [ { value: 0, color: 'rgba(202,34,43,1)' }, { value: 10000000, color: 'rgba(29,79,156,1)' } ]
 										}
 									]
 								});
