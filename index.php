@@ -111,7 +111,7 @@
 					$votesForBiden = round($remaining - $votesForTrump);
 					$finalMargin = $currentMargin + $votesForBiden - $votesForTrump;
 					
-					if($trendOfTrailingCandidate > 50) $trendOfTrailingCandidate = (100 - $trendOfTrailingCandidate);
+					$trendOfTrailingCandidate = (100 - $trendOfTrailingCandidate);
 				}
 				
 				$fontColor = "black";
@@ -132,9 +132,9 @@
 					<br />
 					<h3>Projected final margin for Biden: <u><?= $finalMargin < 0 ? "Lose" : "Win" ?></u> by <b><?= number_format(abs($finalMargin),0,".",",") ?></b> votes.</h3>
 
-					<div style="background:rgba(255,255,255,0.9);width:99%;height:300px;border:2px solid transparent;border-radius:5px;padding-top:10px">
+					<div style="background:white;width:99%;height:300px;border:2px solid transparent;border-radius:5px;padding-top:10px">
 						<div id="<?=$chartName?>" style="width:100%;height:285px"></div>
-						<span style="font-size:10px">&nbsp;&nbsp;Times on horizontal axis are in UTC</span>
+						<span style="font-size:10px;color:black">&nbsp;&nbsp;Times on horizontal axis are in UTC</span>
 						<script language="javascript">
 							$.getJSON('get-state-graph.php?state=<?=strtolower($stateName)?>&v=' + (new Date()).getTime(), function(chartData) {
 								measuredData = chartData[0];
