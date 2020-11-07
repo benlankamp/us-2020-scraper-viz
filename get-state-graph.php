@@ -29,7 +29,9 @@ if ($handle) {
 			// calculate final margin
 			$currentLead = $splitted[2];
 			$currentMargin = intval( $splitted[6] );
+			$totalVotesCounted = intval($splitted[4]) + intval($splitted[5]);
 			$remaining = intval( $splitted[7] );
+			if($remaining < 0) $remaining = 0.001 * $totalVotesCounted;		// If NYT reports more votes counted than expected, set remaining at 0.1% of total counted
 			$trendOfTrailingCandidate = floatval( $splitted[15] ) * 100.0;
 			
 			// calculate end margins
@@ -44,8 +46,6 @@ if ($handle) {
 				$votesForTrump = round(($trendOfTrailingCandidate/100.0) * $remaining);
 				$votesForBiden = round($remaining - $votesForTrump);
 				$finalMargin = $currentMargin + $votesForBiden - $votesForTrump;
-				
-				if($trendOfTrailingCandidate > 50) $trendOfTrailingCandidate = (100 - $trendOfTrailingCandidate);
 			}
 			
 			array_push( $actualDataArray, array( 'x' => $batchGMT->getTimestamp()*1000, 'y' => $currentMargin ) );

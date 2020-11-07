@@ -45,7 +45,7 @@
 		
 
 		$latestBatch = fgets($handle);
-		$batchGMT = new DateTime( substr( $latestBatch, 22, 18 ), $utcTZ );
+		$batchGMT = new DateTime( substr( $latestBatch, strlen($latestBatch)-20, 16 ), $utcTZ );
 
 		$batchET = clone $batchGMT;
 		$batchET->setTimeZone($etTZ);
