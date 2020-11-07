@@ -100,6 +100,8 @@
 				if($remaining < 0) $remaining = 0.001 * $totalVotesCounted;		// If NYT reports more votes counted than expected, set remaining at 0.1% of total counted
 				$trendOfTrailingCandidate = floatval( $splitted[15] ) * 100.0;
 				
+				$finalVoteCount = $totalVotesCounted + $remaining;
+				
 				// calculate end margins
 				if($currentLead == "Trump") {
 					$currentMargin = -$currentMargin;
@@ -115,6 +117,8 @@
 					
 					$trendOfTrailingCandidate = (100 - $trendOfTrailingCandidate);
 				}
+				
+				$marginPercentage = ( $finalMargin / $finalVoteCount ) * 100.0;
 				
 				$fontColor = "black";
 				$finalMarginColor = "rgba(29,79,156,1)";
@@ -132,7 +136,11 @@
 					<br />
 					There are estimated to be <?= number_format($remaining,0,".",",") ?> votes left to count and/or report. Given the current trend, Biden will receive another <?= number_format($votesForBiden,0,".",",") ?> votes, while Trump will receive another <?= number_format($votesForTrump,0,".",",") ?> votes.<br />
 					<br />
-					<h3>Projected final margin for Biden: <u><?= $finalMargin < 0 ? "Lose" : "Win" ?></u> by <b><?= number_format(abs($finalMargin),0,".",",") ?></b> votes.</h3>
+					<h3>
+						Projected final margin for Biden: <u><?= $finalMargin < 0 ? "Lose" : "Win" ?></u> 
+						by <b><?= number_format(abs($finalMargin),0,".",",") ?></b> votes
+						<?= $finalMargin > 0 ? " (" . number_format($marginPercentage,2,".",",") . "% of total)" : ""?>.
+					</h3>
 
 					<div style="background:white;width:99%;height:300px;border:2px solid transparent;border-radius:5px;padding-top:10px">
 						<div id="<?=$chartName?>" style="width:100%;height:285px"></div>
